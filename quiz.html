@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Hardware Engineering & Architecture Quiz - Hardwarepedia</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="components.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container">
+                <a href="index.html" class="brand">
+                    <div class="brand-icon">HP</div>
+                    <span>Hardwarepedia</span>
+                </a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="boards.html">Boards</a></li>
+                        <li><a href="sensors.html">Sensors</a></li>
+                        <li><a href="protocols.html">Protocols</a></li>
+                        <li><a href="pinout.html">Pinouts</a></li>
+                        <li><a href="compare.html">Compare</a></li>
+                        <li><a href="tools.html">Tools</a></li>
+                        <li><a href="quiz.html" class="active">Quiz</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="search-trigger-btn" type="button">
+                        <span>search Hardware</span>
+                        <kbd>Ctrl k</kbd>
+                    </button>
+                    <button class="mobile-menu-btn" aria-label="Toggle navigation">+</button>
+                </div>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>
+                    <li> HARDWARE Quiz</li>
+                </ul>
+                <div class="page-header" style="text-align: center; max-width: 760px; margin: 0 auto 2.5rem;">
+                    <h1 class="page-title">Hardware Knowledge Test</h1>
+                    <p class="page-description" style="margin: 0 auto;">
+                        Evaluate your understanding of microcontroller Architecture, I2C/SPI Bus dynamics, voltage level shifting, and electrical calculations.          
+                    </p>
+                </div>
+                <div id="quiz-app">
+                </div>
+           </div>
+        </main>
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <div class="brand" style="margin-bottom: 0.75rem;">
+                            <div class="brand-icon">HP</div>
+                            <span>Hardwarepedia</span>
+                        </div>
+                    <p style="color: var(--text-muted); font-size: .9rem; line-height:1.5; max-width: 280px;">
+                        An open hardware documentation encyclopedia for microcontrollers, embedded boards, sensor, and electronic design
+                    </p>
+                </div>    
+                
+                <div class="footer-col">
+                    <h4>Hardware</h4>
+                    <ul>
+                        <li><a href="boards.html">All Boards</a></li>
+                        <li><a href="board-detail.html?id=esp32-wroom-32">ESP32-WROOM-32</a></li>
+                        <li><a href="board-detail.html?id=raspberry-pi-pico-w">raspberry-pi-pico-w</a></li>
+                        <li><a href="board-detail.html?id=raspberry-pi-5">Raspberry Pi 5</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>References</h4>
+                    <ul>
+                        <li><a href="sensors.html">Sensors & Modules</a></li>
+                        <li><a href="protocols.html">Bus Protocols</a></li>
+                        <li><a href="pinout.html">Pinout Visualizer</a></li>
+                        <li><a href="compare.html">Side by Side Compare</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Utilities</h4>
+                    <ul>
+                        <li><a href="tools.html">LED Resistor Calculator</a></li>
+                        <li><a href="tools.html">Voltage Divider Tool</a></li>
+                        <li><a href="tools.html">Battery Life Estimator</a></li>
+                        <li><a href="quiz.html">Hardware Quiz</a></li>
+                    </ul>
+                </div>
+            </div> 
+            <div class="footer-bottom">
+                <div>&copy; Hardwarepedia, The best Hardware Documentation</div>
+            </div>
+            </div>
+        </footer>
+        <div class="search-modal" id="search-modal">
+            <div class="search-dialog">
+                <div class="search-header">
+                    <input type="text" id="global-search-input" placeholder="Search boards, Sensors, Bus protocols" autocomplete="off">
+                    <kbd style="font-size: 0.75rem; color: var(--text-muted);"> Esc to Close</kbd>
+                </div>
+                <div class="search-results" id="search-results-list"></div>
+                <div class="search-footer">
+                    <span>Press <kbd>Enter </kbd> To select</span>
+                    <span>Navigation: <kbd>&uarr;</kbd> <kbd> &darr;</kbd></span>
+                </div>
+            </div>
+        </div>
+        <script src="data.js"></script>
+        <script src="main.js"></script>
+        <script src="quiz.js"></script>
+    </body>
+</html>
