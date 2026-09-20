@@ -20,14 +20,14 @@
     --pin-power: #dc2626;
     --pin-gnd: #1e293b;
     --pin-adc: #d97706;
-    --pin-12c: #2563eb;
+    --pin-i2c: #2563eb;
     --pin-spi: #7c3aed;
     --pin-uart: #0891b2;
     --pin-pwm: #ea580c;
     --font-sans: -apple-system, BlinkMacSystemFont, "segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New" monospace;
-    --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.5);
-    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.8), 0 2px 4 px -1px rgba (0,0,0,0.5);
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.05);
     --radius-sm: 4px;
     --radius-md: 6px;
     --radius-lg: 8px;
@@ -46,7 +46,7 @@ html{
 
 body {
     font-family: var(--font-sans);
-    background-color: var(--bd-primary);
+    background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.5;
     min-height: 100vh;
@@ -93,7 +93,7 @@ p code, li code, td code {
     background-color: var(--bg-tertiary);
     border: 1px solid var(--border-light);
     padding: 0.15rem 0.35rem;
-    border-radius: var(--raduius-sm);
+    border-radius: var(--radius-sm);
     color: var(--text-primary);
     font-size: 0.9em;
 }
@@ -101,7 +101,7 @@ p code, li code, td code {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1 rem 0;
+    margin: 1rem 0;
     font-size: 1rem;
 }
 
@@ -187,7 +187,7 @@ tr:hover td {
 }
 .nav-links a {
     display: block;
-    padding: 0,5rem 0.75rem;
+    padding: 0.5rem 0.75rem;
     color: var(--text-secondary);
     font-weight: 500;
     font-size: 1rem;
@@ -212,7 +212,7 @@ tr:hover td {
     align-items: center;
     gap: 0.5rem;
     background-color: var(--bg-secondary);
-    border: 1px solid var(--bg-secondary);
+    border: 1px solid var(--border-color);
     color: var(--text-muted);
     padding: .5rem 0.9rem;
     border-radius: var(--radius-sm);
@@ -240,7 +240,7 @@ tr:hover td {
     display: none;
     background: none;
     border: 1px solid var(--border-color);
-    padding: 0.5rem 0,5rem;
+    padding: 0.5rem 0.5rem;
     border-radius: var(--radius-sm);
     cursor: pointer;
 }
@@ -278,7 +278,7 @@ tr:hover td {
     list-style: none;
     padding: 0;
 }
-.breadcrumb li+li ::before {
+.breadcrumb li+li::before {
     content: "/";
     margin-right: 0.5rem;
     color: var(--border-color);
@@ -331,7 +331,7 @@ tr:hover td {
 }
 
 .footer-col a:hover {
-    color: var(--text-muted);
+    color: var(--text-primary);
     text-decoration: underline;
 }
 .footer-bottom {
@@ -357,7 +357,7 @@ tr:hover td {
     border: 1px solid transparent;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.15s border-color 0.15s color 0.15s;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
 }
 
 .btn:hover {
@@ -418,7 +418,7 @@ tr:hover td {
     display: inline-flex;
     align-items: center;
     gap: 0.2rem;
-    padding: 0.2 rem 0.5rem;
+    padding: 0.2rem 0.5rem;
     font-size: 0.8rem;
     font-weight: 600;
     background-color: var(--badge-bg);
@@ -426,6 +426,7 @@ tr:hover td {
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    border-radius: 0.05em;
 }
 
 .badge-blue {
@@ -434,21 +435,25 @@ tr:hover td {
 
 }
 
-.badge-blue {
-    background-color: #dcfcd7;
+.badge-green {
+    background-color: #dcfce7;
     color: #166534;
 }
 
 .badge-amber {
-    background-color: #f3e8ff;
-    color: #6b21a8;
+    background-color: #fef3c7;
+    color: #92400e;
 }
 
 .badge-red {
     background-color: #fee2e2;
-    color: 991b1b;
+    color: #991b1b;
 }
 
+.badge-purple {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
 .form-group {
     margin-bottom: 1rem;
 }
@@ -485,7 +490,7 @@ tr:hover td {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(15, 23, 42, 0.5rem);
+    background-color: rgba(15, 23, 42, 0.5);
     backdrop-filter: blur(2px);
     z-index: 1000;
     justify-content: center;
@@ -510,7 +515,7 @@ tr:hover td {
 
 @keyframes modalSlide {
     from{
-        transform: translate(-10px);
+        transform: translateY(-10px);
         opacity: 0;
     }
     to{
@@ -598,7 +603,7 @@ tr:hover td {
     z-index: 2000;
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity 0,2s transform 0.2s;
+    transition: opacity 0.2s, transform 0.2s;
     pointer-events: none;
 }
 
@@ -680,4 +685,10 @@ tr:hover td {
 }
 
 @media (max-width: 540px){
+    .footer-grid{
+        grid-template-columns: 1fr;
+    }
+    .search-trigger-btn kbd {
+        display: none;
+    }
 }
