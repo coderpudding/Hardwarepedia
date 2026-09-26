@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Pinout Explorer - hardwarepedia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">HP</div>
+                <span>hardwarepedia</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="boards.html">Boards</a></li>
+                    <li><a href="sensors.html">sensors</a></li>
+                    <li><a href="protocols.html">Protocols</a></li>
+                    <li><a href="pinouts.html" class="active">Pinouts</a></li>
+                    <li><a href="compare.html">Compare</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="search-trigger-btn" type="button">
+                    <span>Search hardware</span>
+                    <kbd>Ctrl K</kbd>
+                </button>
+                <button class="mobile-menu-btn" aria-label="Toggle navigation">+</button>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li>Interactive Pinouts</li>
+            </ul>
+            <div class="page-header">
+                <h1 class="page-title">Interactive hardware Pinout Explorer</h1>
+                <p class="page-description">
+                    Inspect multiplexed pin functions, hardware peripherals, ADC channels and voltage levels, click or hover on any physical pin to view detailed Mapping
+                </p>
+            </div>
+
+            <div class="filter-bar" style="margin-bottom: 1.5rem;">
+                <div class="filter-group" style="flex: 1; min-width: 250px;">
+                    <label for="pinout-board-select">Select Development Boards:</label>
+                    <select id="pinout-board-select" class="form-select">
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class="pin-legend">
+                    <div class="legend-chip active" data-type="all">All Pins</div>
+                    <div class="legend-chip" data-type="gpio"><span class="legend-dot" style="background: var(--pin-gpio);"></span>GPIO</div>
+                    <div class="legend-chip" data-type="adc"><span class="legend-dot" style="background: var(--pin-adc);"></span>ADC</div>
+                    <div class="legend-chip" data-type="i2c"><span class="legend-dot" style="background: var(--pin-i2c);"></span>I2C</div>
+                    <div class="legend-chip" data-type="spi"><span class="legend-dot" style="background: var(--pin-spi);"></span>SPI</div>
+                    <div class="legend-chip" data-type="uart"><span class="legend-dot" style="background: var(--pin-uart);"></span>UART</div>
+                    <div class="legend-chip" data-type="pwm"><span class="legend-dot" style="background: var(--pin-pwm);"></span>PWM</div>
+                    <div class="legend-chip" data-type="power"><span class="legend-dot" style="background: var(--pin-power);"></span>Power (3.3V / 5V)</div>
+                    <div class="legend-chip" data-type="gnd"><span class="legend-dot" style="background: var(--pin-gnd);"></span>Ground(GND)</div>
+                </div>
+                <div class="pinout-container">
+                    <div class="pinout-board-wrapper">
+                        <div class="pinout-header-info">
+                            <h2 id="pinout-board-title" style="font-size: 1.3rem; margin-bottom: 0.3rem;">ESP32-WROOM-32</h2>
+                            <div id="pinout-board-subtitle" style="font-size: 1rem; color: #94a3b8;">Espressif System</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
