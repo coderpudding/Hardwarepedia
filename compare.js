@@ -15,7 +15,7 @@ const initCompareMatrix = () => {
         select1.innerHTML = optionsHtml;
         select2.innerHTML = optionsHtml;
         if (select3) {
-            select3.innerHTML = `<option value="">--None(2-way compare) --</options>${optionsHtml}`;
+            select3.innerHTML = `<option value="">-- None (2-way compare) --</option>${optionsHtml}`;
         }
 
         const params = new URLSearchParams(window.location.search);
@@ -25,24 +25,24 @@ const initCompareMatrix = () => {
 
         if (HARDWARE_DATA.boards.some((b) => b.id === b1)) select1.value = b1;
         if (HARDWARE_DATA.boards.some((b) => b.id === b2)) select2.value = b2;
-        if (select2 && b3 && HARDWARE_DATA.boards.some((b)=> b.id === b3))select3.value = b3;
+        if (select3 && b3 && HARDWARE_DATA.boards.some((b)=> b.id === b3))select3.value = b3;
     };
 
     const renderMatrix = () => {
         const board1 = HARDWARE_DATA.boards.find(({ id }) => id === select1.value) ?? HARDWARE_DATA.boards[0];
         const board2 = HARDWARE_DATA.boards.find(({ id }) => id === select2.value) ?? HARDWARE_DATA.boards[1];
         const board3 = select3?.value ? HARDWARE_DATA.boards.find(({ id }) => id === select3.value) : null;
-        const activeBoards = [board1, board2, board3].filter(boolean);
+        const activeBoards = [board1, board2, board3].filter(Boolean);
 
         const attributes = [
-            { key: "vendor", label: "Manufacture"},
+            { key: "vendor", label: "Manufacturer / Vendor"},
             { key: "category", label: "Device Category", transform: (v) => v.toUpperCase()},
-            { key: "architecture", label: "CPU Archtecture"},
-            { key: "cores", label: "processing cores", transform: (v) => `${v}Cores`},
+            { key: "architecture", label: "CPU Architecture"},
+            { key: "cores", label: "Processing Cores", transform: (v) => `${v} Core(s)`},
             { key: "clockSpeed", label: "Clock Frequency" },
             { key: "sram", label: "SRAM Memory" },
-            { key: "Flash", label: "Flash Memory" },
-            { key: "Psram", label: "PSRAM (External)" },
+            { key: "flash", label: "Flash Memory" },
+            { key: "psram", label: "PSRAM (External)" },
             { key: "operatingVoltage", label: "Logic Voltage" },
             { key: "inputVoltage", label: "Input Voltage Range" },
             { key: "activeCurrent", label: "Active Current" },
@@ -51,9 +51,55 @@ const initCompareMatrix = () => {
             { key: "bluetooth", label: "Bluetooth" },
             { key: "gpioCount", label: "Total GPIO Count", transform: (v) => `${v} Pins`},
             { key: "adcChannels", label: "ADC Channels" },
-            { key: "dacChannels", label: "DAC Channels" },
+            { key: "dacChannels", label: "DAC Channels" }
         ];
 
-        
-   }
-}
+        const theadHtml =  `
+        <thead>
+        <tr>
+         <th> Specification Feature</th>
+         ${activeBoards.map(({id, name, vendor}) =>`
+         <th>
+             <div>${escapeHtml(name)}</div>
+             <div>${escapeHtml(vendor)}</div>
+             <a href="board-detail.html?id=${encodeURIComponent(id)}" class="btn btn-secondary btn-sm">Datasheet</a>
+         </th>
+          `).join("")}
+        </tr>
+        </thead>
+        `; 
+
+        const tbodyHtml = attributes.map(({key, label, transform}) => {
+            const values = activeBoards.map((b) => {
+                const raw = b[key];
+                return transform ? transform(raw) : raw;
+            });
+
+            const isDiff = new Set(values).size > 1;
+            return `
+            <tr>
+              <td>${escapeHtml(label)}</td>
+              ${values.map((v) => `
+                <td>
+                ${escapeHtml(v)}
+                </td>
+                `).join("")}
+            </tr>
+            `;
+        }).join("");
+
+        matrixContainer.innerHTML = `
+        <table class="compare-matrix-table">
+         ${theadHtml}
+         <tbody>
+          ${tbodyHtml}
+          </tbody>
+        </table>
+        `;
+    };
+
+    populateSelects()
+    renderMatrix();
+
+    [select1, select2, select3].forEach((sel) =>sel?.addEventListener("change", renderMatrix));
+};
