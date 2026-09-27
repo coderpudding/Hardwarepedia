@@ -81,9 +81,9 @@
                     <aside class="pin-detail-panel">
                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
                         <span class="badge" id="selected-pin-type" style="background: var(--pin-gpio); color: #fff;">GPIO</span> 
-                        <span id="selected-pin-num" style="font-family: var(--font-mono); font-family: 1rem; color: var(--text-muted);">Pin 1</span>   
+                        <span id="selected-pin-num" style="font-family: var(--font-mono); font-size: 1rem; color: var(--text-muted);">Pin 1</span>   
                         </div>
-                        <h3 id="selected-pin-name" style="font-size: 1.5 rem; font-weight: 700; margin-bottom: 0.5rem; font-family: var(--font-mono)">GPIO Pin</h3>
+                        <h3 id="selected-pin-name" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; font-family: var(--font-mono)">GPIO Pin</h3>
                         <div style="margin: 1.3rem 0; padding-top: 1rem; border-top: 1px solid var(--border-light);">
                         <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem;">Multiplexed Description</h4> 
                         <p id="selected-pin-desc" style="font-size: 0.9rem; color: var(--text-primary); line-height: 1.5;">
@@ -100,23 +100,23 @@
                     </aside>
                 </div>
             </div>
-            <selection style="margin-top: 3.5rem;">
+            <section style="margin-top: 3.5rem;">
                 <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Tabular Pin Function Index</h2>
                 <div style="overflow-x: auto;">
                     <table>
-                        <thread>
+                        <thead>
                             <tr>
                                 <th style="width: 80px;">Pin</th>
                                 <th>Pin Label</th>
                                 <th style="width: 120px;">Category</th>
                                 <th>peripheral Function &amp; Alternative Routing</th>
                             </tr>
-                        </thread>
+                        </thead>
                         <tbody id="pinout-table-body">
                         </tbody>
                     </table>
                 </div>
-            </selection>
+            </section>
         </div>
     </main>
 
@@ -180,6 +180,6 @@
     </div>
     <script src="data.js"></script>
     <script src="main.js"></script>
-    <script src="pinout.js"></script>
+    <script src="pinouts.js"></script>
 </body>
 </html>
