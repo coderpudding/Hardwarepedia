@@ -50,7 +50,7 @@ const initPinoutVisualizer = () => {
         if (!currentBoard?.pinout) return;
 
         if (boardTitle) boardTitle.textContent = currentBoard.name;
-        if (boardSub) boardSub.textContent = `$(currentBoard.vendor) | ${currentBoard.operatingVoltage} Logic | ${currentBoard.gpioCount} GPIOs`;
+        if (boardSub) boardSub.textContent = `${currentBoard.vendor} | ${currentBoard.operatingVoltage} Logic | ${currentBoard.gpioCount} GPIOs`;
 
         renderDiagram();
         renderTable();
@@ -95,7 +95,7 @@ const initPinoutVisualizer = () => {
 
             return `
             <tr class="${isDimmed ? 'dimmed': ''}">
-              <td>${pin,pin}</td>
+              <td>${pin.pin}</td>
               <td>
                <span></span>
                ${escapeHtml(pin.name)}
@@ -115,21 +115,53 @@ const initPinoutVisualizer = () => {
 
         if (detailName) detailName.textContent = pin.name;
         if (detailNum) detailNum.textContent = `Pin #${pin.pin}`;
-    }
+        if (detailType) {
+            detailType.textContent = pin.type.toUpperCase();
+            detailType.style.backgroundColor = getPinColor(pin.type);
+        }
 
-    if (detailDesc) detailDesc.textContent = pin.desc;
-    if (detailSafety) {
-        detailType.textContent = pin.type.toUpperCase();
-        detailType.style.backgroundColor = getPinColor(pin.type);
-
-    }
     if (detailDesc) detailDesc.textContent = pin.desc;
     if (detailSafety) {
         const safetyRules = {
             power: "Power delivery Pin, Observe strict current limits",
             gnd: "common system reference ground",
             default: currentBoard.operatingVoltage === "5V"
-              
-        }
+            ? "5.0V TTL Logic Level tolerant."
+            : "Standard 3.3V Logic Level. Maximum current sink/source 12-20mA"              
+        };
+        detailSafety.textContent = safetyRules[pin.type] ??
+        safetyRules.default;
     } 
-}
+};
+    const attachPinEvents = () => {
+        document.querySelectorAll(".pin-row").forEach((el) => {
+            const handler = () => {
+                const pinNum = parseInt(el.dataset.pin);
+                const pin = currentBoard.pinout.find((p) => p.pin === pinNum);
+                if (pin) selectPin(pin);
+            };
+        
+        el.addEventListener("click", handler);
+        el.addEventListener("mouseenter", handler);
+        }); 
+    };
+
+    legendChips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+            legendChips.forEach((c) => c.classList.remove("active"));
+            chip.classList.add("active");
+            activeFilter = chip.dataset.type;
+            renderDiagram();
+            renderTable();
+        });
+    });
+
+    boardSelect?.addEventListener("change", (e) => {
+        loadBoard(e.target.value);
+    });
+
+    populateBoardSelect();
+    if (boardSelect?.value) {
+        loadBoard(boardSelect.value);
+    }
+};            
